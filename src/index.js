@@ -196,13 +196,16 @@ export function registerCommandPalette(commands) {
 
   // 绑定打开命令面板的快捷键（例如 Ctrl + Shift + P）
   document.addEventListener("keydown", (event) => {
-    if (event.ctrlKey && event.shiftKey && event.key === "P") {
+    if (event.ctrlKey && event.shiftKey && event.key === "K") {
       openPalette();
     }
+    if (event.key === 'Escape' && palette.style.display == "block") {
+      closePalette();
+    }
   });
+  document.addEventListener('click', function(event) {
+    if (palette.style.display == "block" && !palette.contains(event.target)) {
+        closePalette();
+    }
+});
 }
-
-// 1. 无输入的时候显示全部命令
-// 2. 有最大高度，超过之后显示滚动条
-// 3. 鼠标hover的时候要像组件库的list一样 并且点击的时候有反应
-// 4. 改进样式，优雅美观一些不要出现覆盖
